@@ -13,23 +13,70 @@
             --text-color: #2a2a2a;
             --accent-color: #4a4a4a;
             --border-color: #e0e0e0;
+            --header-bg: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            --box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            --caption-bg: rgba(0, 0, 0, 0.6);
+            --caption-text: #ffffff;
+            --gradient: linear-gradient(270deg, #a8dabe, #a7dabe, #b3ffcf);
+            --header-gradient: white
         }
         body {
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--bg-color);
         }
         header {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            background: var(--header-bg);
             color: white;
             text-align: center;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient);
+            animation: rotateGradient 15s linear infinite;
+            z-index: 0;
+        }
+        header h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 3.5rem;
+            background: var(--header-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textPulse 4s ease-in-out infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        @keyframes rotateGradient {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes textPulse {
+            0%, 100% {
+                filter: brightness(100%);
+            }
+            50% {
+                filter: brightness(120%);
+            }
         }
         h1, h2 {
             color: var(--text-color);
@@ -49,11 +96,8 @@
             margin-bottom: 30px;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-            transition: transform 0.3s ease;
-        }
-        .section:hover {
-            transform: translateY(-5px);
+            box-shadow: var(--box-shadow);
+            /* Removed hover effect */
         }
         img {
             max-width: 100%;
@@ -79,7 +123,7 @@
         }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
         .project-card {
@@ -87,14 +131,24 @@
             padding: 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
         }
         .project-card:hover {
             background-color: var(--border-color);
+            /* Removed transform hover effect */
+        }
+        .project-card.active {
+            background-color: var(--accent-color);
+            color: white;
         }
         .project-content {
             display: none;
             margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
         }
         ul {
             list-style-type: none;
@@ -114,38 +168,118 @@
         a:hover {
             border-bottom-color: transparent;
         }
+        /* Updated Image Gallery Styles */
         .image-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
+
+        .image-gallery figure {
+            position: relative;
+            margin: 0;
+        }
+
         .image-gallery img {
             width: 100%;
-            max-width: 200px;
-            height: auto;
+            height: 250px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
-        .profile-picture {
-            width: 200px;
-            height: 200px;
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .image-gallery figcaption {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        /* Single Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 70%;
+            border-radius: 8px;
+        }
+
+        .lightbox figcaption {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 1em;
+            color: var(--caption-text);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Updated "About Me" Section */
+        .about-me {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px; /* Added vertical space */
+        }
+
+        .about-me-text {
+            flex: 1 1 60%;
+            margin-right: 20px;
+        }
+
+        .about-me-image {
+            flex: 1 1 35%;
+            max-width: 300px;
+            margin: 20px 0;
+        }
+
+        .about-me-image img {
+            width: 100%;
+            height: auto;
             border-radius: 50%;
             object-fit: cover;
-            float: right;
-            margin-left: 20px;
         }
+
         .logo-picture {
             width: 200px;
             height: auto;
             float: right;
             margin-left: 20px;
         }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
+        /* Removed clearfix class as Flexbox handles layout */
         .learn-more {
             display: inline-block;
             margin-top: 10px;
@@ -159,65 +293,68 @@
         .learn-more:hover {
             background-color: var(--text-color);
         }
+        .skills-list li {
+            margin-bottom: 10px;
+        }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        /* Optional: Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
         }
-        .project-card {
-            background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .project-card:hover {
-            background-color: var(--border-color);
-            transform: translateY(-5px);
-        }
-        .project-card.active {
-            background-color: var(--accent-color);
-            color: white;
-        }
-        .project-content {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .about-me {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-me-text, .about-me-image {
+                flex: 1 1 100%;
+                max-width: 100%;
+                margin: 10px 0;
+            }
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>&lt;Luke Gutman Portfolio/&gt;</h1>
+        <h1>Luke Gutman Portfolio</h1>
     </header>
 
-    <div class="section clearfix">
-        <h2>About Me</h2>
-        <img src="images/profile.jpg" alt="Luke Gutman Profile Picture" class="profile-picture">
-        <p>Hello, world! I'm Luke Gutman, a Mechanical Engineering student at the University of North Carolina at Charlotte. I specialize in Robotics, CAD, Mechanical Design, and Programming. This portfolio showcases my projects and skills in engineering and software development.</p>
-    </div>
-
-    <div class="section">
-        <h2>Contact</h2>
-        <p>Email: lukegutman.engineering@gmail.com</p>
-        <p>Phone: (484)-515-3348</p>
-        <p>Website: <a href="https://lukegutman.com" target="_blank">lukegutman.com</a></p>
-    </div>
-
-    <div class="section clearfix">
-        <h2>Education</h2>
-        <img src="images/unccharlotte.png" alt="UNC Charlotte Logo" class="logo-picture">
-        <p><strong>University of North Carolina at Charlotte</strong> - Charlotte, NC</p>
-        <p>Bachelor of Science in Mechanical Engineering</p>
-        <p>Graduating in May 2025</p>
+    <div class="section about-me">
+        <div class="about-me-text">
+            <h2>About Me</h2>
+            <p>Hello, world! I'm Luke Gutman, a Mechanical Engineering student at the University of North Carolina at Charlotte. I specialize in Robotics, CAD, Mechanical Design, and Programming. This portfolio showcases my projects and skills in engineering and software development.</p>
+        </div>
+        <div class="about-me-image">
+            <img src="images/profile.jpg" alt="Luke Gutman Profile Picture" class="profile-picture">
+        </div>
     </div>
 
     <div class="section">
         <h2>Work Experience</h2>
+        <h3>Victaulic - Engineering Internship Year 1 (May 2023 - Aug 2023)</h3>
+        <ul>
+            <li>Increased seal life of pressure tester gasket from ~4 hours to +3 weeks (saves $180,000 a year)</li>
+            <li>Collected and analyzed data of hose cutting machine to optimize settings for quality and speed</li>
+            <li>Designed improved hose gripping fixture to minimize variability in hose location</li>
+            <li>Created stands for stainless steel tubing spools to hold at optimal height and prevent sag</li>
+        </ul>
+        <div class="image-gallery">
+            <figure>
+                <img src="images/vic1.jpg" alt="Internship Year 1 Image 1" loading="lazy" onclick="openLightbox('images/vic1.jpg', '')">
+            </figure>
+            <figure>
+                <img src="images/seal.jpg" alt="Internship Year 1 Image 2" loading="lazy" onclick="openLightbox('images/seal.jpg', '')">
+            </figure>
+            <figure>
+                <img src="images/data.png" alt="Internship Year 1 Image 3" loading="lazy" onclick="openLightbox('images/data.png', '')">
+            </figure>
+        </div>
+        <a href="#" class="learn-more">Learn More</a>
         <h3>Victaulic - Engineering Internship Year 2 (May 2024 - Aug 2024)</h3>
         <ul>
             <li>Designed fire sprinkler glass bulb orientation correction mechanism</li>
@@ -227,22 +364,15 @@
             <li>Assisted in general operation of automated cell fixing daily faults and slowdowns</li>
         </ul>
         <div class="image-gallery">
-            <img src="/api/placeholder/200/150" alt="Internship Year 2 Image 1">
-            <img src="/api/placeholder/200/150" alt="Internship Year 2 Image 2">
-            <img src="/api/placeholder/200/150" alt="Internship Year 2 Image 3">
-        </div>
-        <a href="#" class="learn-more">Learn More</a>
-        <h3>Victaulic - Engineering Internship Year 1 (May 2023 - Aug 2023)</h3>
-        <ul>
-            <li>Increased seal life of pressure tester gasket from ~4 hours to +3 weeks</li>
-            <li>Collected and analyzed data of hose cutting machine to optimize settings for quality and speed</li>
-            <li>Designed improved hose gripping fixture to minimize variability in hose location</li>
-            <li>Created stands for stainless steel tubing spools to hold at optimal height and prevent sag</li>
-        </ul>
-        <div class="image-gallery">
-            <img src="/api/placeholder/200/150" alt="Internship Year 1 Image 1">
-            <img src="/api/placeholder/200/150" alt="Internship Year 1 Image 2">
-            <img src="/api/placeholder/200/150" alt="Internship Year 1 Image 3">
+            <figure>
+                <img src="images/vic2.JPG" alt="Internship Year 2 Image 1" loading="lazy" onclick="openLightbox('images/vic2.JPG', '')">
+            </figure>
+            <figure>
+                <img src="images/dryauto.png" alt="Internship Year 2 Image 2" loading="lazy" onclick="openLightbox('images/dryauto.png', '')">
+            </figure>
+            <figure>
+                <img src="images/dryauot2.png" alt="Internship Year 2 Image 3" loading="lazy" onclick="openLightbox('images/dryauot2.png', '')">
+            </figure>
         </div>
         <a href="#" class="learn-more">Learn More</a>
     </div>
@@ -254,132 +384,239 @@
                 <h3>Gold Rush Robotics</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project2')">
-                <h3>School Timer Website</h3>
+                <h3>Junior Design Robot</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project3')">
-                <h3>High School Robotics</h3>
+                <h3>ASME Mini Golf Robot</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project4')">
-                <h3>3D Printed Drone</h3>
+                <h3>School Timer Website</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project5')">
-                <h3>Smart Home Automation</h3>
+                <h3>4 Legged Robotic Dogs</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project6')">
-                <h3>AI-powered Chess Bot</h3>
+                <h3>High School Robotics</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project7')">
-                <h3>Electric Skateboard</h3>
+                <h3>Robotic Home Automation</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project8')">
-                <h3>Hydroponics System</h3>
+                <h3>Charlotte Occupancy</h3>
             </div>
             <div class="project-card" onclick="toggleProject('Project9')">
-                <h3>Virtual Reality Game</h3>
+                <h3>Charlotte GeoGuessr</h3>
             </div>
         </div>
 
         <div id="Project1" class="project-content">
             <h3>Gold Rush Robotics</h3>
-            <img src="/api/placeholder/600/400" alt="Gold Rush Robotics Project">
+            <img src="/api/placeholder/600/400" alt="Gold Rush Robotics Project" loading="lazy">
             <p>As the President of Gold Rush Robotics at UNC Charlotte, I lead a student engineering team in building autonomous robots. We innovate critical components and design collection, transportation, and delivery methods for competition elements. Our team achieved 1st place in the IEEE Southeast Conference Hardware Challenge 2022.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="Gold Rush Robotics Image 1">
-                <img src="/api/placeholder/200/150" alt="Gold Rush Robotics Image 2">
-                <img src="/api/placeholder/200/150" alt="Gold Rush Robotics Image 3">
+                <figure>
+                    <img src="images/2022robot.JPG" alt="Gold Rush Robotics Image 1" loading="lazy" onclick="openLightbox('images/2022robot.JPG', 'Autonomous Robot Prototype')">
+                    <figcaption>Autonomous Robot Prototype</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/2024robot.png" alt="Gold Rush Robotics Image 2" loading="lazy" onclick="openLightbox('images/2024robot.png', 'Team Collaboration Session')">
+                    <figcaption>Team Collaboration Session</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/2023robot.png" alt="Gold Rush Robotics Image 3" loading="lazy" onclick="openLightbox('images/2023robot.png', 'Competition Setup at IEEE Southeast Conference')">
+                    <figcaption>Competition Setup at IEEE Southeast Conference</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project2" class="project-content">
-            <h3>School Timer Website</h3>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-            <p>I created and maintain <a href="https://www.schooltimer.net" target="_blank">SchoolTimer.net</a>, a website that helps high school students manage their time at school through impactful data. The website is used by over 600 students daily, demonstrating my skills in web development and user-centric design.</p>
+            <h3>Junior Design Robot</h3>
+            <p>Description for Junior Design Robot project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="School Timer Website Image 1">
-                <img src="/api/placeholder/200/150" alt="School Timer Website Image 2">
-                <img src="/api/placeholder/200/150" alt="School Timer Website Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Junior Design Robot Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Design Phase Overview')">
+                    <figcaption>Design Phase Overview</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Junior Design Robot Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Prototype Testing')">
+                    <figcaption>Prototype Testing</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Junior Design Robot Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Final Presentation')">
+                    <figcaption>Final Presentation</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project3" class="project-content">
-            <h3>High School Robotics</h3>
-            <p>As a member of the Robotics Engineering Club at Parkland High School, I integrated hardware and software components to effectively complete time-based challenges. Our team achieved the highest autonomous points at the Eastern PA State Competition and qualified for the Vex Robotics Worlds Competition.</p>
+            <h3>ASME Mini Golf Robot</h3>
+            <p>Description for ASME Mini Golf Robot project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="High School Robotics Image 1">
-                <img src="/api/placeholder/200/150" alt="High School Robotics Image 2">
-                <img src="/api/placeholder/200/150" alt="High School Robotics Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="ASME Mini Golf Robot Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Design and Development')">
+                    <figcaption>Design and Development</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="ASME Mini Golf Robot Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Testing and Optimization')">
+                    <figcaption>Testing and Optimization</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="ASME Mini Golf Robot Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Competition Day')">
+                    <figcaption>Competition Day</figcaption>
+                </figure>
             </div>
         </div>
+
         <div id="Project4" class="project-content">
-            <h3>3D Printed Drone</h3>
-            <p>Designed and built a custom drone using 3D printed parts. Optimized for lightweight and durability, this project showcases my skills in CAD design, 3D printing, and electronics integration.</p>
+            <h3>School Timer Website</h3>
+            <p>Description for School Timer Website project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="3D Printed Drone Image 1">
-                <img src="/api/placeholder/200/150" alt="3D Printed Drone Image 2">
-                <img src="/api/placeholder/200/150" alt="3D Printed Drone Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="School Timer Website Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Wireframing and Design')">
+                    <figcaption>Wireframing and Design</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="School Timer Website Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Development Process')">
+                    <figcaption>Development Process</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="School Timer Website Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Final Deployment')">
+                    <figcaption>Final Deployment</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project5" class="project-content">
-            <h3>Smart Home Automation</h3>
-            <p>Developed a comprehensive smart home system using Raspberry Pi and various IoT devices. Features include automated lighting, climate control, and security monitoring, all controllable via a custom mobile app.</p>
+            <h3>4 Legged Robotic Dogs</h3>
+            <p>Description for 4 Legged Robotic Dogs project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="Smart Home Automation Image 1">
-                <img src="/api/placeholder/200/150" alt="Smart Home Automation Image 2">
-                <img src="/api/placeholder/200/150" alt="Smart Home Automation Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="4 Legged Robotic Dogs Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Initial Prototyping')">
+                    <figcaption>Initial Prototyping</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="4 Legged Robotic Dogs Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Advanced Mechanics')">
+                    <figcaption>Advanced Mechanics</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="4 Legged Robotic Dogs Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Final Testing')">
+                    <figcaption>Final Testing</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project6" class="project-content">
-            <h3>AI-powered Chess Bot</h3>
-            <p>Created an AI chess engine using machine learning techniques. The bot can play at various difficulty levels and includes features for move analysis and game review.</p>
+            <h3>High School Robotics</h3>
+            <p>Description for High School Robotics project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="Chess Bot Image 1">
-                <img src="/api/placeholder/200/150" alt="Chess Bot Image 2">
-                <img src="/api/placeholder/200/150" alt="Chess Bot Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="High School Robotics Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Team Collaboration')">
+                    <figcaption>Team Collaboration</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="High School Robotics Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Competition Setup')">
+                    <figcaption>Competition Setup</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="High School Robotics Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Award Ceremony')">
+                    <figcaption>Award Ceremony</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project7" class="project-content">
-            <h3>Electric Skateboard</h3>
-            <p>Engineered a custom electric skateboard from scratch. This project involved designing the deck, integrating the motor and battery systems, and developing a wireless remote control.</p>
+            <h3>Robotic Home Automation</h3>
+            <p>Description for Robotic Home Automation project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="Electric Skateboard Image 1">
-                <img src="/api/placeholder/200/150" alt="Electric Skateboard Image 2">
-                <img src="/api/placeholder/200/150" alt="Electric Skateboard Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Robotic Home Automation Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'System Design')">
+                    <figcaption>System Design</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Robotic Home Automation Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Implementation')">
+                    <figcaption>Implementation</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Robotic Home Automation Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Final Presentation')">
+                    <figcaption>Final Presentation</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project8" class="project-content">
-            <h3>Hydroponics System</h3>
-            <p>Designed and built an automated hydroponics system for urban farming. The system includes sensors for monitoring plant health, automated nutrient delivery, and a mobile app for remote monitoring and control.</p>
+            <h3>Charlotte Occupancy</h3>
+            <p>Description for Charlotte Occupancy project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="Hydroponics System Image 1">
-                <img src="/api/placeholder/200/150" alt="Hydroponics System Image 2">
-                <img src="/api/placeholder/200/150" alt="Hydroponics System Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte Occupancy Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Initial Research')">
+                    <figcaption>Initial Research</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte Occupancy Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Data Analysis')">
+                    <figcaption>Data Analysis</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte Occupancy Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Final Report')">
+                    <figcaption>Final Report</figcaption>
+                </figure>
             </div>
         </div>
 
         <div id="Project9" class="project-content">
-            <h3>Virtual Reality Game</h3>
-            <p>Developed a VR game using Unity and C#. The game focuses on spatial puzzle-solving and includes custom 3D models and animations created using Blender.</p>
+            <h3>Charlotte GeoGuessr</h3>
+            <p>Description for Charlotte GeoGuessr project.</p>
             <div class="image-gallery">
-                <img src="/api/placeholder/200/150" alt="VR Game Image 1">
-                <img src="/api/placeholder/200/150" alt="VR Game Image 2">
-                <img src="/api/placeholder/200/150" alt="VR Game Image 3">
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte GeoGuessr Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Game Design')">
+                    <figcaption>Game Design</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte GeoGuessr Image 2" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Development Phase')">
+                    <figcaption>Development Phase</figcaption>
+                </figure>
+                <figure>
+                    <img src="/api/placeholder/200/150" alt="Charlotte GeoGuessr Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'User Testing')">
+                    <figcaption>User Testing</figcaption>
+                </figure>
             </div>
         </div>
     </div>
 
+    <div class="section">
+        <h2>Education</h2>
+        <img src="images/unccharlotte.png" alt="UNC Charlotte Logo" class="logo-picture">
+        <p><strong>University of North Carolina at Charlotte</strong> - Charlotte, NC</p>
+        <p>Bachelor of Science in Mechanical Engineering</p>
+        <p>Graduating in May 2025</p>
+    </div>
+
+    <div class="section">
+        <h2>Extracurricular Activities</h2>
+        <ul>
+            <li>Emerging Leaders Program - Currently serving as External Coordinator (November 2021-Present)</li>
+            <li>Marching Band - Alto Saxophone Player (August 2021 - Present)</li>
+        </ul>
+        <div class="image-gallery">
+            <figure>
+                <img src="/api/placeholder/200/150" alt="Extracurricular Activity Image 1" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Emerging Leaders Program')">
+                <figcaption>Emerging Leaders Program</figcaption>
+            </figure>
+            <figure>
+                <img src="images/band1.jpg" alt="Extracurricular Activity Image 2" loading="lazy" onclick="openLightbox('images/band1.jpg', 'Performing with the Marching Band')">
+                <figcaption>Performing with the Marching Band</figcaption>
+            </figure>
+            <figure>
+                <img src="/api/placeholder/200/150" alt="Extracurricular Activity Image 3" loading="lazy" onclick="openLightbox('/api/placeholder/200/150', 'Band Rehearsal Session')">
+                <figcaption>Band Rehearsal Session</figcaption>
+            </figure>
+        </div>
     </div>
 
     <div class="section">
         <h2>Skills</h2>
-        <ul>
+        <ul class="skills-list">
             <li>CAD: Onshape, Solidworks, Autodesk Fusion 360, Inventor, Creo, and Blender</li>
-            <li>Mechanical: 3D Printing, Mill, Lathe, CNC Router, and CNC Laser Experience
+            <li>Mechanical: 3D Printing, Mill, Lathe, CNC Router, and CNC Laser Experience</li>
             <li>Programming: Python, Javascript, HTML, CSS, C++, Arduino, and Java</li>
             <li>Productivity: Word, Powerpoint, Excel, typing speed of >120 wpm</li>
             <li>Other: Physics Simulations, Video Editing, Rendering, and Animation</li>
@@ -387,51 +624,67 @@
     </div>
 
     <div class="section">
-        <h2>Extracurricular Activities</h2>
-        <ul>
-            <li>Emerging Leaders Program (November 2021-Present)</li>
-            <li>Marching Band - Alto Saxophone Player (August 2021 - Present)</li>
-        </ul>
-        <div class="image-gallery">
-            <img src="/api/placeholder/200/150" alt="Extracurricular Activity Image 1">
-            <img src="/api/placeholder/200/150" alt="Extracurricular Activity Image 2">
-            <img src="/api/placeholder/200/150" alt="Extracurricular Activity Image 3">
-        </div>
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:lukegutman.engineering@gmail.com">lukegutman.engineering@gmail.com</a></p>
+        <p>Phone: (484)-515-3348</p>
+        <p>Website: <a href="https://lukegutman.com" target="_blank">lukegutman.com</a></p>
+    </div>
+
+    <!-- Single Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <figure>
+            <img id="lightbox-img" src="" alt="">
+            <figcaption id="lightbox-caption"></figcaption>
+        </figure>
     </div>
 
     <script>
+        function openLightbox(imageSrc, captionText) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            lightboxImg.src = imageSrc;
+            lightboxImg.alt = captionText;
+            lightboxCaption.textContent = captionText;
+
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox(event) {
+            if (event.target.id === 'lightbox' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+        }
+
         function toggleProject(projectId) {
             const projectCard = event.currentTarget;
             const projectContent = document.getElementById(projectId);
             const allProjects = document.getElementsByClassName('project-content');
             const allCards = document.getElementsByClassName('project-card');
             
-            // Toggle active class for the clicked card
-            projectCard.classList.toggle('active');
-            
-            // If the clicked project is already visible, just return (don't hide it)
-            if (projectContent.style.display === 'block') {
-                return;
-            }
-            
             // Hide all project contents and remove active class from all cards
             for (let project of allProjects) {
                 project.style.display = 'none';
             }
             for (let card of allCards) {
-                if (card !== projectCard) {
-                    card.classList.remove('active');
-                }
+                card.classList.remove('active');
             }
             
-            // Show the clicked project content
-            projectContent.style.display = 'block';
+            // If the clicked project was not active, show it
+            if (projectContent.style.display !== 'block') {
+                projectCard.classList.add('active');
+                projectContent.style.display = 'block';
+            }
         }
 
         // Select the first project as default
         window.onload = function() {
             const firstProject = document.querySelector('.project-card');
-            firstProject.click();
+            if (firstProject) {
+                firstProject.click();
+            }
         }
     </script>
 </body>
