@@ -109,7 +109,7 @@
         }
         .video-container {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* Corrected aspect ratio for 16:9 */
             height: 0;
             overflow: hidden;
             margin-bottom: 20px;
@@ -382,23 +382,13 @@
             }
         }
 
-        iframe {
-            text-align: center;
-            justify-content: center;
-        }
-
-        .iframe-container {
-            display: flex;
-            justify-content: center; /* Centers the iframe horizontally */
-            margin: 20px 0; /* Adds some spacing above and below */
-        }
-
+        /* Updated Iframe Embed Styles */
         .iframe-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 40.25%; /* 16:9 aspect ratio */
+            padding-bottom: 30.25%; /* 16:9 aspect ratio */
             height: 0;
-            margin: 20px 0; /* Spacing above and below the iframe */
+            margin: 20px auto; /* Center the iframe with auto margins */
         }
 
         .iframe-wrapper iframe {
@@ -406,10 +396,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 400px;
+            height: 100%;
+            border: none; /* Remove default border */
             border-radius: 8px; /* Optional: Adds rounded corners */
         }
-
 
     </style>
 </head>
@@ -433,7 +423,8 @@
 
     <div class="section">
         <h2>Work Experience</h2>
-        <img src="images/victaulic.png" style="height:100px">
+        <img src="images/victaulic.png" style="height:100px" alt="Victaulic Logo">
+        <p>Victaulic is the global leader in mechanical pipe joining solutions. At the facility I worked at, Victaulic fire sprinklers were assembled.</p>
     
         <h3>Victaulic - Engineering Internship Year 1 (May 2023 - Aug 2023)</h3>
         <ul>
@@ -454,8 +445,9 @@
             </figure>
         </div>
     
+        <!-- Updated Embed Method for Internship Year 1 -->
         <div class="iframe-wrapper">
-            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQ2asNUr7erT4DPQIMQ1Da_AbWUdz7bnOCMGiiI1xLRrX8?em=2&amp;wdAr=1.7777777777777777" frameborder="0">
+            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQ2asNUr7erT4DPQIMQ1Da_AbWUdz7bnOCMGiiI1xLRrX8?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
                 This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
             </iframe>
         </div>
@@ -480,8 +472,9 @@
             </figure>
         </div>
     
+        <!-- Updated Embed Method for Internship Year 2 -->
         <div class="iframe-wrapper">
-            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQHfYvhkwrwTISCS4_4eAYtAZ-XwszVGlnJUMZKw8k2pks?em=2&amp;wdAr=1.7777777777777777" frameborder="0">
+            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQHfYvhkwrwTISCS4_4eAYtAZ-XwszVGlnJUMZKw8k2pks?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
                 This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
             </iframe>
         </div>
@@ -490,7 +483,7 @@
     
     
     
-
+    
     <div class="section">
         <h2>Projects</h2>
         <div class="projects-grid">
@@ -529,7 +522,7 @@
                 </figure>
             </div>
             <br>
-            <iframe width="100%" height=500 src="https://www.youtube.com/embed/nh9v5OdOVvY?si=NhWaf_xoOCQdc7FH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/nh9v5OdOVvY?si=NhWaf_xoOCQdc7FH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
         </div>
 
         <div id="Project2" class="project-content">
@@ -550,7 +543,7 @@
                 </figure>
             </div>
             <br>
-            <iframe width="100%" height=500 src="https://www.youtube.com/embed/-GsrMwd3YyY?si=u8PkSi_neo_12qbA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/-GsrMwd3YyY?si=u8PkSi_neo_12qbA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
         </div>
 
         <div id="Project3" class="project-content">
