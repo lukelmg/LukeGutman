@@ -14,7 +14,7 @@
             --accent-color: #4a4a4a;
             --border-color: #e0e0e0;
             --header-bg: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            --box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+            --outline-color: #d0d0d0;
             --caption-bg: rgba(0, 0, 0, 0.6);
             --caption-text: #ffffff;
             --gradient: linear-gradient(270deg, #a8dabe, #a7dabe, #b3ffcf);
@@ -22,99 +22,55 @@
         }
         body {
             font-family: 'Lexend', sans-serif;
-            line-height: 1.6;
+            line-height: 1.4;
             color: var(--text-color);
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             background-color: var(--bg-color);
-            font-size: 16px; /* Base font size */
+            font-size: 14px;
         }
         header {
             background: var(--header-bg);
             color: white;
             text-align: center;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--outline-color);
             position: relative;
             overflow: hidden;
-        }
-        header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: var(--gradient);
-            animation: rotateGradient 15s linear infinite;
-            z-index: 0;
+            margin-bottom: 15px;
         }
         header h1 {
-            position: relative;
-            z-index: 1;
-            font-size: 3.5rem;
-            background: var(--header-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textPulse 4s ease-in-out infinite;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 2.5rem;
+            margin: 0;
         }
-        @keyframes rotateGradient {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        @keyframes textPulse {
-            0%, 100% {
-                filter: brightness(100%);
-            }
-            50% {
-                filter: brightness(120%);
-            }
-        }
-        h1, h2 {
-            color: var(--text-color);
-        }
-        h2::before {
-            content: "<";
-            color: var(--accent-color);
-            margin-right: 5px;
-        }
-        h2::after {
-            content: "/>";
-            color: var(--accent-color);
-            margin-left: 5px;
+        h1, h2, h3 {
+            margin: 0.5em 0;
         }
         .section {
             background-color: white;
-            margin-bottom: 30px;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--box-shadow);
-            /* Removed hover effect */
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--outline-color);
         }
         img {
             max-width: 100%;
-            height: auto;
+            height: 100%;
             display: block;
-            margin: 20px 0;
+            margin: 10px 0;
             border-radius: 4px;
         }
-        .video-container {
+        .video-container, .iframe-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Corrected aspect ratio for 16:9 */
+            padding-bottom: 20%;
             height: 0;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin: 15px auto;
+            max-width: 400px;
         }
-        .video-container iframe {
+        .video-container iframe, .iframe-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -124,86 +80,143 @@
         }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
         }
         .project-card {
             background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--outline-color);
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
             text-align: center;
-        }
-        .project-card:hover {
-            background-color: var(--border-color);
-            /* Removed transform hover effect */
         }
         .project-card.active {
             background-color: var(--accent-color);
             color: white;
         }
         .project-content {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
+            margin-top: 15px;
+            padding: 15px;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: var(--box-shadow);
+            border-radius: 4px;
+            border: 1px solid var(--outline-color);
         }
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 5px 0;
+        }
+        ul li {
+            margin-bottom: 5px;
         }
         ul li:before {
             content: ">";
-            margin-right: 10px;
+            margin-right: 8px;
             color: var(--accent-color);
         }
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent-color);
-            transition: border-bottom-color 0.3s;
-        }
-        a:hover {
-            border-bottom-color: transparent;
-        }
-        /* Updated Image Gallery Styles */
         .image-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 15px 0;
+            padding: 0 10px;
         }
-
         .image-gallery figure {
-            position: relative;
             margin: 0;
+            text-align: center;
+            width: 100%;
+            aspect-ratio: 4/3;
+            display: flex;
+            flex-direction: column;
         }
-
         .image-gallery img {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            height: 100%;
+            object-fit: contain;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+            border-radius: 4px;
         }
-
-        .image-gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
         .image-gallery figcaption {
-            margin-top: 8px;
-            text-align: center;
             font-size: 0.9em;
-            color: var(--text-color);
+            text-align: center;
+            margin-top: 8px;
+            padding: 0 10px;
         }
-
-        /* Single Lightbox Styles */
+        .about-me {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .about-me-text {
+            flex: 2;
+        }
+        .about-me-image {
+            flex: 1;
+            max-width: 150px;
+        }
+        .about-me-image img {
+            border-radius: 50%;
+        }
+        .logo-picture {
+            height: 60px;
+            float: right;
+            margin: 0 0 10px 10px;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+                font-size: 13px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            .about-me {
+                flex-direction: column;
+            }
+            .about-me-image {
+                max-width: 150px;
+                margin: 0 auto;
+            }
+            .image-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                padding: 0 5px;
+            }
+            .image-gallery figure {
+                aspect-ratio: 3/2;
+            }
+            .video-container, .iframe-wrapper {
+                padding-bottom: 25%;
+                max-width: 300px;
+            }
+        }
+        .learn-more {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+        }
+        .learn-more:hover {
+            background-color: var(--text-color);
+        }
+        .skills-list li {
+            margin-bottom: 10px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         .lightbox {
             position: fixed;
             top: 0;
@@ -218,24 +231,22 @@
             padding: 20px;
             box-sizing: border-box;
         }
-
         .lightbox.active {
             display: flex;
         }
-
         .lightbox img {
             max-width: 90%;
-            max-height: 70%;
+            max-height: 90vh;
+            object-fit: contain;
             border-radius: 8px;
+            background-color: #f5f5f5;
         }
-
         .lightbox figcaption {
             margin-top: 10px;
             text-align: center;
             font-size: 1em;
             color: var(--caption-text);
         }
-
         .lightbox-close {
             position: absolute;
             top: 20px;
@@ -246,190 +257,20 @@
             font-weight: bold;
             cursor: pointer;
         }
-
-        /* Updated "About Me" Section */
-        .about-me {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            margin-top: 40px; /* Added vertical space */
-        }
-
-        .about-me-text {
-            flex: 1 1 60%;
-            margin-right: 20px;
-        }
-
-        .about-me-image {
-            flex: 1 1 35%;
-            max-width: 300px;
-            margin: 20px 0;
-        }
-
-        .about-me-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .logo-picture {
-            width: 200px;
-            height: auto;
-            float: right;
+        .section ul ul {
             margin-left: 20px;
+            margin-top: 5px;
         }
-        /* Removed clearfix class as Flexbox handles layout */
-        .learn-more {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-            font-size: 1rem; /* Base font size for buttons */
+        .section ul ul li:before {
+            content: "-";
+            color: var(--accent-color);
         }
-        .learn-more:hover {
-            background-color: var(--text-color);
+        .section ul > li {
+            margin-bottom: 15px;
         }
-        .skills-list li {
-            margin-bottom: 10px;
+        .section ul ul > li {
+            margin-bottom: 5px;
         }
-
-        /* Optional: Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .about-me {
-                flex-direction: column;
-                align-items: center;
-            }
-            .about-me-text, .about-me-image {
-                flex: 1 1 100%;
-                max-width: 100%;
-                margin: 10px 0;
-            }
-            .image-gallery {
-                grid-template-columns: 1fr;
-            }
-            .section {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-            .learn-more {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr; /* Single column layout for projects */
-                gap: 15px;
-            }
-            .project-card {
-                padding: 16px; /* Reduce padding for project cards */
-                font-size: 1rem;
-            }
-            .image-gallery img {
-                height: auto; /* Let images define their own height */
-            }
-            .lightbox img {
-                max-width: 100%;
-                max-height: 60%;
-            }
-            .lightbox-close {
-                font-size: 24px;
-                top: 10px;
-                right: 20px;
-            }
-            .video-container {
-                padding-bottom: 75%; /* Increase video height on small screens */
-            }
-            .iframe-wrapper {
-                padding-bottom: 75%; /* Increase iframe height on small screens */
-            }
-        }
-
-        /* Additional Responsive Enhancements for Smaller Screens */
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2.5rem; /* Reduce header font size */
-            }
-            body {
-                font-size: 14px; /* Slightly smaller base font size */
-                padding: 10px; /* Reduce body padding */
-            }
-            .section {
-                padding: 15px; /* Further reduce section padding */
-                margin-bottom: 15px;
-            }
-            h2::before, h2::after {
-                display: none; /* Simplify headings on small screens */
-            }
-            h2 {
-                font-size: 1.5rem; /* Adjust h2 font size */
-            }
-            h3 {
-                font-size: 1.2rem; /* Adjust h3 font size */
-            }
-            p {
-                line-height: 1.5;
-            }
-            .learn-more {
-                padding: 14px 24px;
-                font-size: 1.1rem;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr; /* Single column layout for projects */
-                gap: 15px;
-            }
-            .project-card {
-                padding: 16px; /* Reduce padding for project cards */
-                font-size: 1rem;
-            }
-            .image-gallery img {
-                height: auto; /* Let images define their own height */
-            }
-            .lightbox img {
-                max-width: 100%;
-                max-height: 60%;
-            }
-            .lightbox-close {
-                font-size: 24px;
-                top: 10px;
-                right: 20px;
-            }
-            .video-container {
-                padding-bottom: 75%; /* Increase video height on small screens */
-            }
-            .iframe-wrapper {
-                padding-bottom: 75%; /* Increase iframe height on small screens */
-            }
-        }
-
-        /* Updated Iframe Embed Styles */
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 57.25%; /* Corrected aspect ratio for 16:9 */
-            height: 0;
-            margin: 20px auto; /* Center the iframe with auto margins */
-        }
-
-        .iframe-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none; /* Remove default border */
-            border-radius: 8px; /* Optional: Adds rounded corners */
-        }
-
     </style>
 </head>
 <body>
@@ -440,13 +281,40 @@
     <div class="section about-me">
         <div class="about-me-text">
             <h2>About Me</h2>
-            <p>Hello, world! I'm Luke Gutman, a Mechanical Engineering student at the University of North Carolina at Charlotte. I specialize in Robotics, CAD, Mechanical Design, and Programming. This portfolio showcases my projects and skills in engineering and software development.</p>
+            <p>Hello, world! I'm Luke Gutman, a Mechanical Engineer. I specialize in Robotics, CAD, Mechanical Design, and Programming. This portfolio showcases my projects and skills in engineering and software development.</p>
             <p>Email: <a href="mailto:lukegutman.engineering@gmail.com">lukegutman.engineering@gmail.com</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/lukegutman/" target="_blank">lukegutman</a></p>
         </div>
         <div class="about-me-image">
             <img src="images/profile.jpg" alt="Luke Gutman Profile Picture" class="profile-picture">
         </div>
+    </div>
+
+    <div class="section">
+        <h2>Senior Design Project</h2>
+        <h3>Bosch - Design of Manufacturing Automation Cell for Dispensing Saw Blades (August 2024 - May 2025)</h3>
+        <ul>
+            <li>Reduced manual counting time of saw blades by up to 70%</li>
+            <li>Designed lead screw driven linear carriage system to hold 200 saw blades of different sizes</li>
+            <li>Developed pneumatic suction blade carrying system driven by PLC activated solenoids</li>
+            <li>Won 1st place (best project award) among entire senior class of engineers</li>
+        </ul>
+        <div class="image-gallery">
+            <figure>
+                <img src="images/bosch1.png" alt="Senior Design Project Image 1" loading="lazy" onclick="openLightbox('images/bosch1.png', 'Senior Design Project')">
+                <figcaption>Project Overview</figcaption>
+            </figure>
+            <figure>
+                <img src="images/bosch2.jpg" alt="Senior Design Project Image 2" loading="lazy" onclick="openLightbox('images/bosch2.jpg', 'Senior Design Project Details')">
+                <figcaption>Winning Trophies</figcaption>
+            </figure>
+            <figure>
+                <img src="images/bosch3.jpg" alt="Senior Design Project Image 3" loading="lazy" onclick="openLightbox('images/bosch3.jpg', 'Senior Design Project Results')">
+                <figcaption>Me next to machine</figcaption>
+            </figure>
+        </div>
+        <br>
+        <iframe width="100%" height="500" src="https://www.youtube.com/embed/HeOgPQcpzYU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
 
     <div class="section">
@@ -582,39 +450,12 @@
         <img src="images/victaulic.png" style="height:100px" alt="Victaulic Logo">
         <p>Victaulic is the global leader in mechanical pipe joining solutions. At the facility I worked at, Victaulic fire sprinklers were assembled.</p>
     
-        <h3>Victaulic - Engineering Internship Year 1 (May 2023 - Aug 2023)</h3>
+        <h3>Victaulic - Manufacturing Engineering Internship Year 2 (May 2024 - Aug 2024)</h3>
         <ul>
-            <li>Increased seal life of pressure tester gasket from ~4 hours to +3 weeks (saves $180,000 a year)</li>
-            <li>Collected and analyzed data of hose cutting machine to optimize settings for quality and speed</li>
-            <li>Designed improved hose gripping fixture to minimize variability in hose location</li>
-            <li>Created stands for stainless steel tubing spools to hold at optimal height and prevent sag</li>
-        </ul>
-        <div class="image-gallery">
-            <figure>
-                <img src="images/vic1.jpg" alt="Internship Year 1 Image 1" loading="lazy" onclick="openLightbox('images/vic1.jpg', '')">
-            </figure>
-            <figure>
-                <img src="images/seal.jpg" alt="Internship Year 1 Image 2" loading="lazy" onclick="openLightbox('images/seal.jpg', '')">
-            </figure>
-            <figure>
-                <img src="images/data.png" alt="Internship Year 1 Image 3" loading="lazy" onclick="openLightbox('images/data.png', '')">
-            </figure>
-        </div>
-    
-        <!-- Updated Embed Method for Internship Year 1 -->
-        <div class="iframe-wrapper">
-            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQ2asNUr7erT4DPQIMQ1Da_AbWUdz7bnOCMGiiI1xLRrX8?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
-                This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
-            </iframe>
-        </div>
-    
-        <h3>Victaulic - Engineering Internship Year 2 (May 2024 - Aug 2024)</h3>
-        <ul>
-            <li>Designed fire sprinkler glass bulb orientation correction mechanism</li>
-            <li>Addressed sporadic issue of fire sprinkler pip caps orienting incorrectly due to vibrations and collisions</li>
-            <li>Implemented sifting process for incoming screws into machine via custom 3D printed sifter</li>
-            <li>Improved existing agitation bowl to prevent jams and spills</li>
-            <li>Assisted in general operation of automated cell fixing daily faults and slowdowns</li>
+            <li>Optimized production of automated cell for manufacturing of dry fire sprinklers</li>
+            <li>Designed mechanism for air-assisted orientation correction of parts for robot picking</li>
+            <li>Implemented improved design for part loading agitator to completely eliminate spills and jams</li>
+            <li>Created sifting process for operator part loading to prevent all debris from entering machine</li>
         </ul>
         <div class="image-gallery">
             <figure>
@@ -628,11 +469,36 @@
             </figure>
         </div>
     
-        <!-- Updated Embed Method for Internship Year 2 -->
-        <div class="iframe-wrapper">
-            <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQHfYvhkwrwTISCS4_4eAYtAZ-XwszVGlnJUMZKw8k2pks?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
-                This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
-            </iframe>
+        <h3>Victaulic - Manufacturing Engineering Internship Year 1 (May 2023 - Aug 2023)</h3>
+        <ul>
+            <li>Increased seal life of pressure tester gasket from 4 hours to +3 weeks; saves $180,000 annually</li>
+            <li>Collected and analyzed data of hose cutting machine to optimize settings for quality and speed</li>
+            <li>Designed improved hose gripping fixture to minimize variability in hose location</li>
+        </ul>
+        <div class="image-gallery">
+            <figure>
+                <img src="images/vic1.jpg" alt="Internship Year 1 Image 1" loading="lazy" onclick="openLightbox('images/vic1.jpg', '')">
+            </figure>
+            <figure>
+                <img src="images/seal.jpg" alt="Internship Year 1 Image 2" loading="lazy" onclick="openLightbox('images/seal.jpg', '')">
+            </figure>
+            <figure>
+                <img src="images/data.png" alt="Internship Year 1 Image 3" loading="lazy" onclick="openLightbox('images/data.png', '')">
+            </figure>
+        </div>
+
+        <h3>Internship Final Presentations</h3>
+        <div style="display: flex; gap: 20px; margin-top: 10px;">
+            <div class="iframe-wrapper" style="flex: 1;">
+                <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQ2asNUr7erT4DPQIMQ1Da_AbWUdz7bnOCMGiiI1xLRrX8?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
+                    This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
+                </iframe>
+            </div>
+            <div class="iframe-wrapper" style="flex: 1;">
+                <iframe src="https://1drv.ms/p/c/12b9bd85e344306f/IQQHfYvhkwrwTISCS4_4eAYtAZ-XwszVGlnJUMZKw8k2pks?em=2&amp;wdAr=1.7777777777777777" loading="lazy" frameborder="0">
+                    This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.
+                </iframe>
+            </div>
         </div>
     </div>
 
@@ -647,19 +513,44 @@
     <div class="section">
         <h2>Skills</h2>
         <ul class="skills-list">
-            <li>CAD: Onshape, Solidworks, Autodesk Fusion 360, Inventor, Creo, and Blender</li>
             <li>Mechanical: 3D Printing, Mill, Lathe, CNC Router, and CNC Laser Experience</li>
-            <li>Programming: Python, Javascript, HTML, CSS, C++, Arduino, and Java</li>
-            <li>Productivity: Word, Powerpoint, Excel, typing speed of >120 wpm</li>
-            <li>Other: Physics Simulations, Video Editing, Rendering, and Animation</li>
+            <li>CAD: Onshape, SolidWorks, Autodesk Fusion 360, Inventor, Creo, and Blender</li>
+            <li>Programming: Python, JavaScript, HTML, CSS, C++, Arduino, Next.JS, and Java</li>
+            <li>Other: NVIDIA Isaac Sim, Video Editing, Rendering, Animation, Typing Speed >120 wpm</li>
         </ul>
     </div>
 
     <div class="section">
         <h2>Extracurricular Activities</h2>
+        <h3>University of North Carolina at Charlotte:</h3>
         <ul>
-            <li>Emerging Leaders Program - Currently serving as External Coordinator (November 2021-Present)</li>
-            <li>Marching Band - Alto Saxophone Player (August 2021 - Present)</li>
+            <li><strong>Emerging Leaders Program</strong> (Distinguished Leader Medal Recipient) (November 2021 - May 2025)
+                <ul>
+                    <li>Developing leadership and communication skills through mentorship and workshops</li>
+                    <li>Serving as External Coordinator for 2024-2025; previously served as Pear Advising Leader</li>
+                </ul>
+            </li>
+            <li><strong>UNCC Marching Band</strong> (August 2021 - May 2025)
+                <ul>
+                    <li>Alto Saxophone; practice 3 times per week + performances (roughly 10–20 hrs per week)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Parkland High School:</h3>
+        <ul>
+            <li><strong>Creator of Website - School Timer</strong> (schooltimer.net) (March 2018 - Present)
+                <ul>
+                    <li>Helps high school students manage their time at school through impactful data</li>
+                    <li>Website used by over 600 students daily</li>
+                </ul>
+            </li>
+            <li><strong>Robotics Engineering Club</strong> (September 2019 - June 2021)
+                <ul>
+                    <li>Achieved highest autonomous points at Eastern PA State Competition</li>
+                    <li>Qualified for Vex Robotics Worlds Competition</li>
+                </ul>
+            </li>
         </ul>
         <div class="image-gallery">
             <figure>
@@ -671,7 +562,7 @@
                 <figcaption>Marching Band</figcaption>
             </figure>
             <figure>
-                <img src="images/band2.jpg" alt="Extracurricular Activity Image 3" loading="lazy" onclick="openLightbox('images/band2.jpg', 'Bandn')">
+                <img src="images/band2.jpg" alt="Extracurricular Activity Image 3" loading="lazy" onclick="openLightbox('images/band2.jpg', 'Band Performance')">
                 <figcaption>Marching Band Performance</figcaption>
             </figure>
         </div>
@@ -680,11 +571,9 @@
     <div class="section">
         <h2>Contact</h2>
         <p>Email: <a href="mailto:lukegutman.engineering@gmail.com">lukegutman.engineering@gmail.com</a></p>
-        <p>Phone: <u>(484)-515-3348</u></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/lukegutman/" target="_blank">lukegutman</a></p>
     </div>
 
-    <!-- Single Lightbox Modal -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
         <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
         <figure>
@@ -718,7 +607,6 @@
             const allProjects = document.getElementsByClassName('project-content');
             const allCards = document.getElementsByClassName('project-card');
             
-            // Hide all project contents and remove active class from all cards
             for (let project of allProjects) {
                 project.style.display = 'none';
             }
@@ -726,14 +614,12 @@
                 card.classList.remove('active');
             }
             
-            // If the clicked project was not active, show it
             if (projectContent.style.display !== 'block') {
                 projectCard.classList.add('active');
                 projectContent.style.display = 'block';
             }
         }
 
-        // Select the first project as default
         window.onload = function() {
             const firstProject = document.querySelector('.project-card');
             if (firstProject) {
@@ -743,3 +629,4 @@
     </script>
 </body>
 </html>
+
