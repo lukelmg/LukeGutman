@@ -385,3 +385,223 @@ draw();
 }
 
 </script>
+
+<style>
+    /* Created By Luke Gutman 2019 */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 2em;
+}
+
+h1 {
+  font-style: italic;
+  color: #373fff;
+}
+
+canvas {
+  display: block;
+  position: relative;
+  zindex: 1;
+  pointer-events: none;
+}
+
+#content {
+  text-align: center;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -150px;
+  color: silver;
+  font-family: verdana;
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.buttonContainer {
+  display: inline-block;
+}
+
+button {
+  padding: 5px 10px;
+  font-size: 20px;
+}
+
+
+#date {
+    margin-top: 0px;
+  font-family: Arial;
+  color: white;
+  font-size: 3vh;
+  font-weight: bold;
+  display: inline-block;
+    text-shadow: 1px 1px 2px gray;
+  line-height: 0px;
+
+}
+
+#dateLabel {
+    margin-top: 0px;
+  font-family: Arial;
+  color: white;
+  font-size: 3vh;
+line-height: 0px;
+  display: inline-block;
+    text-shadow: 1px 1px 2px gray;
+
+  
+}
+
+
+#values {
+  display:none;
+}
+
+#progressPercent {
+  display:inline-block;
+  color:white;
+  font-family:Arial;
+  font-size:3vh;
+    text-shadow: 1px 1px 2px gray;
+}
+
+
+#Progress_Status { 
+  width: 100%; 
+  background-color: black; 
+  outline: 1px solid white;
+  height: 3vh;
+
+  
+} 
+  
+#myprogressBar { 
+  width: 1%; 
+  height: 3vh; 
+  background-color: white; 
+  float:left;
+  
+} 
+
+
+
+#textButton {
+  margin-top: 5px;
+  background-color:white;
+  outline: 1px solid black;
+  border:none;
+  color:black;
+  transition: .15s ease-in;
+  font-family:Arial;
+  font-weight:bold;
+  font-size:3vh;
+  display:inline-block;
+  
+}
+
+#textButton:hover {
+  transform: scale(1.1);
+}
+
+#backgroundButton {
+  margin-top: 30px;
+  margin-right: 5px;
+  background-color:white;
+  outline: 1px solid black;
+  border:none;
+  color:black;
+  transition: .15s ease-in;
+  font-family:Arial;
+  font-weight:bold;
+  font-size:3vh;
+  display:inline-block;
+}
+
+#backgroundButton:hover {
+ transform: scale(1.1);
+}
+
+#colorPickerText{
+  margin-top:5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#colorPickerHeader {
+  width:95%;
+  height:20%;
+  background-color:black;
+  outline: 1px solid white;
+  color:white;
+  font-size: 4vh;
+}
+
+#colorPickerContainer {
+  width: 35vh;
+  height:400px;;
+  background-color:white;
+  top: -1000px;
+   position: absolute;
+  transition: 0.2s;
+}
+
+#colorPickerButton {
+    position: absolute;
+    bottom: 0;
+  margin-bottom: 20px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color:black;
+  outline: 1px solid white;
+  border:none;
+  color:white;
+  transition: .05s ease-in;
+  font-family:Arial;
+  font-weight:bold;
+  font-size:3vh;
+    text-shadow: 1px 1px 2px gray;
+}
+
+#colorPickerButton:hover {
+font-size: 3.2vh;
+  cursor:grab;
+}
+
+#wholeThing {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+#timeUntilLabel {
+  font-family: Arial;
+  color: white;
+  font-size: 6vh;
+  display: inline-block;
+  line-height: 0px;
+  text-shadow: 1px 1px 2px gray;
+  margin-bottom: 20px;
+}
+
+#timeUntil {
+  margin-top: 0px;
+  font-family: Arial;
+  color: white;
+  font-size: 6vh;
+  font-weight: bold;
+  display: inline-block;
+    text-shadow: 1px 1px 2px gray;
+  margin-bottom:20px;
+}
+
+body {
+  background-color: black;
+}
+
+</style>
